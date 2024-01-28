@@ -1,0 +1,7 @@
+.env
+insta
+instagramProject/__pycache__
+instagramAuth/__pycache__
+instagramApp/__pycache__
+instagramApp/migrations
+instagramAuth/migrations

@@ -1,0 +1,13 @@
+
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{% include 'main/home.html' %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="comment" name="" id="">
+</form>
+{% endblock  %}

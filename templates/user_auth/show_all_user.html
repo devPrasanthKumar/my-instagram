@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mt-5">
+          {% for i in alluser %}
+          <div class="card text-start col-lg-4">
+            <img class="card-img-top" src="{{i.profile_img.url}}" alt="Title" />
+            <div class="card-body">
+              <h4 class="card-title">{{i.user}}</h4>
+              <p class="card-text">{{i.bio}}</p>
+              <p class="card-text"></p>
+              <p>{{i.uuid}}</p>
+              <form
+                action="{% if i.uuid %} {% url 'follow' i.uuid  %} {% endif %} "
+                method="post"
+                enctype="multipart/form-data">
+                {% csrf_token %} {{form.as_p}}
+                <input
+                  type="submit"
+                  value="{% if i.following %} following {% else %} follow {% endif %} "
+                  class="btn btn-primary"
+                  name=""
+                  id="" />
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}

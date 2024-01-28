@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %} {% block content %}
+
+<div class="container">
+  <div class="row">
+    <!-- Left column - Profile Section -->
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card mt-5">
+        <img
+          src="{{showuserprofile.profile_img.url}}"
+          class="card-img-top rounded-circle"
+          alt="Profile Picture" />
+        <div class="card-body">
+          <p class="card-text text-center">@{{showuserprofile.user}}</p>
+          <div class="text-center">
+            <p class="card-text">{{postcount}} posts</p>
+            <p class="card-text">
+              Followers {{ showuserprofile.followers.all | length }}
+            </p>
+            <p class="card-text">Following {{followingcount | length }}</p>
+          </div>
+          <a
+            href="{% url 'update-profile' showuserprofile.uuid %}"
+            class="btn btn-dark mt-3"
+            >Edit</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Center column - User's Posts -->
+    <div class="col-lg-5 col-md-8 col-sm-12">
+      <h4 class="mt-5 mb-4">Your Posts</h4>
+
+      {% for j in specificuserpost %}
+      <div class="row mb-4">
+        <div class="col-lg-7 col-md-7 col-sm-12">
+          <a href="{% url 'update-post' j.pk %}" class="btn btn-dark">
+            <img src="{{j.image.url}}" class="img-fluid" alt="Post Image" />
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 mt-5">
+      <h1>Followers List</h1>
+      {% for i in showuserprofile.followers.all %}
+
+      <div class="rounded p-2 mb-3 bg-light">
+        <p class="fs-5">
+          <a class="text-decoration-none text-dark">{{i.username}} </a
+          ><button class="btn btn-dark mx-2">Following</button>
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-2 col-md-12 col-sm-12 mt-5 fs-2">Following</div>
+
+    <p class="col-12">current user :: {{request.user.username}}</p>
+    {% for i in followingcount %}
+
+    <div class="col-lg-2 col-md-3 col-sm-6 rounded p-2 mb-3 bg-light">
+      <p class="fs-5">
+        <a class="text-decoration-none text-dark">{{i}}
+        </a> 
+      </p>
+      <br>
+    </div>
+    {% endfor %} <br>
+  </div>
+</div>
+
+{% endblock %}
